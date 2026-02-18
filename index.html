@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Manifest More Legacy investment growth calculator (educational estimate)." />
+  <title>Manifest More Legacy — Investment Calculator</title>
+
+  <style>
+    :root{
+      /* ===== QUICK BRAND CONTROLS ===== */
+      --bg: #07080a;
+      --card: rgba(255,255,255,.04);
+      --card2: rgba(255,255,255,.02);
+      --border: rgba(255,255,255,.10);
+      --text: #f5f5f5;
+      --muted: rgba(255,255,255,.65);
+      --muted2: rgba(255,255,255,.45);
+      --accent: #ffffff;       /* keep white for your logo aesthetic */
+      --accentSoft: rgba(255,255,255,.12);
+      --good: rgba(34,197,94,.95);
+      --radius: 18px;
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: var(--font);
+      color: var(--text);
+      background:
+        radial-gradient(900px 650px at 15% 10%, rgba(255,255,255,.08), transparent 55%),
+        radial-gradient(900px 650px at 85% 25%, rgba(255,255,255,.05), transparent 55%),
+        var(--bg);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:28px;
+    }
+
+    .wrap{ width:min(1040px, 100%); }
+
+    .top{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:14px;
+      flex-wrap:wrap;
+    }
+    .brand{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      min-width: 280px;
+    }
+    .logo{
+      width:56px;
+      height:56px;
+      border-radius:14px;
+      background: #000;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      flex:0 0 auto;
+    }
+    .logo img{ width:100%; height:100%; object-fit:cover; }
+
+    .brand h1{
+      margin:0;
+      font-size:18px;
+      letter-spacing:.3px;
+      line-height:1.2;
+    }
+    .brand p{
+      margin:6px 0 0;
+      color: var(--muted);
+      font-size:13px;
+      line-height:1.35;
+      max-width: 54ch;
+    }
+
+    .pill{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      font-size:12px;
+      white-space:nowrap;
+    }
+
+    .card{
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      background: linear-gradient(180deg, var(--card), var(--card2));
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+    }
+    @media (max-width: 900px){
+      .grid{ grid-template-columns:1fr; }
+    }
+
+    .pane{
+      padding:22px;
+    }
+    .pane + .pane{
+      border-left:1px solid var(--border);
+    }
+    @media (max-width: 900px){
+      .pane + .pane{ border-left:none; border-top:1px solid var(--border); }
+    }
+
+    .kicker{
+      margin:0 0 14px;
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color: var(--muted2);
+    }
+
+    .fields{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 560px){
+      .fields{ grid-template-columns:1fr; }
+    }
+
+    label{
+      display:block;
+      font-size:12px;
+      color: var(--muted);
+      margin-bottom:6px;
+    }
+
+    input, select{
+      width:100%;
+      border-radius: 14px;
+      padding:12px 12px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,.35);
+      color: var(--text);
+      outline:none;
+      font-size:14px;
+    }
+    input:focus, select:focus{
+      border-color: rgba(255,255,255,.40);
+      box-shadow: 0 0 0 4px var(--accentSoft);
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      margin-top:14px;
+      flex-wrap:wrap;
+    }
+    button{
+      border:none;
+      border-radius: 14px;
+      padding:12px 14px;
+      font-weight:700;
+      font-size:14px;
+      cursor:pointer;
+    }
+    .btn-primary{
+      background: var(--accent);
+      color: #0b0c10;
+    }
+    .btn-ghost{
+      background: transparent;
+      border:1px solid var(--border);
+      color: var(--text);
+    }
+
+    .result{
+      display:grid;
+      gap:12px;
+    }
+    .metric{
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,.28);
+      border-radius: 16px;
+      padding:14px 14px;
+    }
+    .metric .t{
+      color: var(--muted);
+      font-size:12px;
+      margin-bottom:6px;
+    }
+    .metric .v{
+      font-size:22px;
+      font-weight:900;
+      letter-spacing:.2px;
+    }
+    .metric .s{
+      margin-top:6px;
+      font-size:13px;
+      color: var(--muted);
+      line-height:1.35;
+    }
+
+    .bar{
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,.28);
+      border-radius: 16px;
+      padding:14px;
+      margin-top:12px;
+    }
+    .bar .row{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      color: var(--muted);
+      font-size:12px;
+      margin-bottom:10px;
+    }
+    .track{
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      overflow:hidden;
+      display:flex;
+    }
+    .seg{ height:100%; }
+    .seg-contrib{ background: rgba(255,255,255,.55); }
+    .seg-growth{ background: rgba(34,197,94,.85); }
+
+    .note{
+      margin-top:14px;
+      color: var(--muted);
+      font-size:12px;
+      line-height:1.45;
+    }
+
+    .footer{
+      margin-top:12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      color: var(--muted);
+      font-size:12px;
+    }
+
+    a{ color: var(--text); text-decoration:underline; text-underline-offset:3px; }
+    a:hover{ opacity:.85; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <div class="logo" aria-label="Manifest More Legacy logo">
+          <!-- Embedded logo (no extra files needed) -->
+          <img alt="Manifest More Legacy"
+               src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8AAAB+0lEQVR4Xu3QsQ0AIBDAsNL9dz5WICgkqLrQd2Y0m3wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPgBf2cAAZ9cJv0AAAAASUVORK5CYII=" />
+        </div>
+        <div>
+          <h1>Investment Growth Calculator</h1>
+          <p>Estimate how consistent contributions could compound over time. Educational estimate only.</p>
+        </div>
+      </div>
+
+      <div class="pill">Educational estimate • Not financial advice</div>
+    </div>
+
+    <div class="card">
+      <div class="grid">
+        <!-- LEFT: INPUTS -->
+        <div class="pane">
+          <p class="kicker">Inputs</p>
+
+          <div class="fields">
+            <div>
+              <label for="initial">Starting amount</label>
+              <input id="initial" inputmode="decimal" value="5000" />
+            </div>
+
+            <div>
+              <label for="monthly">Monthly contribution</label>
+              <input id="monthly" inputmode="decimal" value="250" />
+            </div>
+
+            <div>
+              <label for="years">Time horizon (years)</label>
+              <input id="years" inputmode="numeric" value="15" />
+            </div>
+
+            <div>
+              <label for="rate">Expected annual return (%)</label>
+              <input id="rate" inputmode="decimal" value="6.5" />
+            </div>
+
+            <div>
+              <label for="compound">Compounding frequency</label>
+              <select id="compound">
+                <option value="12" selected>Monthly</option>
+                <option value="4">Quarterly</option>
+                <option value="2">Semi-annual</option>
+                <option value="1">Annual</option>
+                <option value="365">Daily</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="currency">Currency</label>
+              <select id="currency">
+                <option value="CAD" selected>CAD</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn-primary" id="calcBtn">Calculate</button>
+            <button class="btn-ghost" id="resetBtn" type="button">Reset</button>
+          </div>
+
+          <div class="note">
+            Assumes contributions are added monthly and returns are compounded at the selected frequency.
+            This simplified illustration does not include taxes, fees, withdrawals, inflation, or volatility.
+          </div>
+        </div>
+
+        <!-- RIGHT: RESULTS -->
+        <div class="pane">
+          <p class="kicker">Results</p>
+
+          <div class="result">
+            <div class="metric">
+              <div class="t">Estimated future value</div>
+              <div class="v" id="fv">$0</div>
+              <div class="s">Projected value at the end of your time horizon.</div>
+            </div>
+
+            <div class="metric">
+              <div class="t">Total contributed</div>
+              <div class="v" id="contrib">$0</div>
+              <div class="s">Starting amount + all monthly contributions.</div>
+            </div>
+
+            <div class="metric">
+              <div class="t">Estimated growth</div>
+              <div class="v" id="growth">$0</div>
+              <div class="s">Projected gains from compounding (future value minus contributions).</div>
+            </div>
+          </div>
+
+          <div class="bar" aria-label="Contribution vs growth breakdown">
+            <div class="row">
+              <span>Contribution vs Growth</span>
+              <span id="barLabel">—</span>
+            </div>
+            <div class="track">
+              <div class="seg seg-contrib" id="segContrib" style="width:50%"></div>
+              <div class="seg seg-growth" id="segGrowth" style="width:50%"></div>
+            </div>
+          </div>
+
+          <div class="footer">
+            <!-- Change this link to your booking/landing CTA -->
+            <div class="pill">
+              Ready for a real plan? <a href="#consult">Book a Financial Check-Up</a>
+            </div>
+            <div class="pill">© Manifest More Legacy</div>
+          </div>
+
+          <div class="note">
+            Tip: If you want this to feel more “landing page,” add a short section below this calculator
+            with a single CTA button + testimonials.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ---------- helpers ----------
+    const $ = (id) => document.getElementById(id);
+
+    function parseNumber(val){
+      if (typeof val !== "string") return Number(val) || 0;
+      const cleaned = val.replace(/[^0-9.\-]/g, "");
+      const n = Number(cleaned);
+      return Number.isFinite(n) ? n : 0;
+    }
+
+    function formatMoney(amount, currency){
+      try {
+        return new Intl.NumberFormat(undefined, {
+          style: "currency",
+          currency,
+          maximumFractionDigits: 0
+        }).format(amount);
+      } catch {
+        return `$${Math.round(amount).toLocaleString()}`;
+      }
+    }
+
+    /**
+     * We:
+     * 1) convert nominal annual rate compounded m times to effective annual rate
+     * 2) convert effective annual to equivalent monthly rate
+     * 3) apply FV formulas with monthly contributions (end of month)
+     */
+    function calcFutureValue(initial, monthly, years, annualRatePct, compoundsPerYear){
+      const r = annualRatePct / 100;
+      const totalMonths = Math.max(0, Math.round(years * 12));
+      if (totalMonths === 0) return { fv: initial, contributed: initial, growth: 0 };
+
+      const m = Math.max(1, Math.round(compoundsPerYear));
+      const effAnnual = Math.pow(1 + (r / m), m) - 1;
+      const i = Math.pow(1 + effAnnual, 1/12) - 1; // monthly equivalent
+
+      const fvInitial = initial * Math.pow(1 + i, totalMonths);
+
+      let fvContrib = 0;
+      if (i === 0) {
+        fvContrib = monthly * totalMonths;
+      } else {
+        fvContrib = monthly * ((Math.pow(1 + i, totalMonths) - 1) / i);
+      }
+
+      const fv = fvInitial + fvContrib;
+      const contributed = initial + (monthly * totalMonths);
+      const growth = fv - contributed;
+
+      return { fv, contributed, growth };
+    }
+
+    // ---------- UI ----------
+    const initialEl = $("initial");
+    const monthlyEl = $("monthly");
+    const yearsEl = $("years");
+    const rateEl = $("rate");
+    const compoundEl = $("compound");
+    const currencyEl = $("currency");
+
+    const fvEl = $("fv");
+    const contribEl = $("contrib");
+    const growthEl = $("growth");
+    const segContrib = $("segContrib");
+    const segGrowth = $("segGrowth");
+    const barLabel = $("barLabel");
+
+    function render(){
+      const initial = Math.max(0, parseNumber(initialEl.value));
+      const monthly = Math.max(0, parseNumber(monthlyEl.value));
+      const years = Math.max(0, parseNumber(yearsEl.value));
+      const rate = parseNumber(rateEl.value);
+      const compounds = parseNumber(compoundEl.value) || 12;
+      const currency = currencyEl.value || "CAD";
+
+      const { fv, contributed, growth } = calcFutureValue(initial, monthly, years, rate, compounds);
+
+      fvEl.textContent = formatMoney(fv, currency);
+      contribEl.textContent = formatMoney(contributed, currency);
+      growthEl.textContent = formatMoney(Math.max(0, growth), currency);
+
+      const total = Math.max(1, contributed + Math.max(0, growth));
+      const contribPct = Math.min(100, Math.max(0, (contributed / total) * 100));
+      const growthPct = 100 - contribPct;
+
+      segContrib.style.width = contribPct.toFixed(1) + "%";
+      segGrowth.style.width = growthPct.toFixed(1) + "%";
+      barLabel.textContent = `${contribPct.toFixed(0)}% contributed • ${growthPct.toFixed(0)}% growth`;
+    }
+
+    $("calcBtn").addEventListener("click", render);
+
+    $("resetBtn").addEventListener("click", () => {
+      initialEl.value = "5000";
+      monthlyEl.value = "250";
+      yearsEl.value = "15";
+      rateEl.value = "6.5";
+      compoundEl.value = "12";
+      currencyEl.value = "CAD";
+      render();
+    });
+
+    [initialEl, monthlyEl, yearsEl, rateEl, compoundEl, currencyEl].forEach(node => {
+      node.addEventListener("input", render);
+      node.addEventListener("change", render);
+    });
+
+    render();
+  </script>
+</body>
+</html>
