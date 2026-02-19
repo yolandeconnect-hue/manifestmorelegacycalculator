@@ -8,17 +8,17 @@
 
   <style>
     :root{
-      /* ===== QUICK BRAND CONTROLS ===== */
+      /* Brand feel: black + white, clean, premium */
       --bg: #07080a;
-      --card: rgba(255,255,255,.04);
-      --card2: rgba(255,255,255,.02);
+      --panel: rgba(255,255,255,.04);
+      --panel2: rgba(255,255,255,.02);
       --border: rgba(255,255,255,.10);
       --text: #f5f5f5;
       --muted: rgba(255,255,255,.65);
       --muted2: rgba(255,255,255,.45);
-      --accent: #ffffff;       /* keep white for your logo aesthetic */
+      --accent: #ffffff;
       --accentSoft: rgba(255,255,255,.12);
-      --good: rgba(34,197,94,.95);
+      --good: rgba(34,197,94,.90);
       --radius: 18px;
       --shadow: 0 18px 60px rgba(0,0,0,.55);
       --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
@@ -40,7 +40,7 @@
       padding:28px;
     }
 
-    .wrap{ width:min(1040px, 100%); }
+    .wrap{ width:min(1060px, 100%); }
 
     .top{
       display:flex;
@@ -50,16 +50,28 @@
       margin-bottom:14px;
       flex-wrap:wrap;
     }
+
     .brand{
       display:flex;
       gap:14px;
       align-items:center;
       min-width: 280px;
     }
-     <img src="logo.png" alt="Manifest More Legacy" />
-    }
- 
 
+    .logo{
+      width:64px;
+      height:64px;
+      border-radius:16px;
+      background:#000;
+      border:1px solid var(--border);
+      box-shadow: var(--shadow);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      flex:0 0 auto;
+    }
+    .logo img{ width:100%; height:100%; object-fit:cover; }
 
     .brand h1{
       margin:0;
@@ -72,7 +84,7 @@
       color: var(--muted);
       font-size:13px;
       line-height:1.35;
-      max-width: 54ch;
+      max-width: 60ch;
     }
 
     .pill{
@@ -90,7 +102,7 @@
       border-radius: var(--radius);
       overflow:hidden;
       box-shadow: var(--shadow);
-      background: linear-gradient(180deg, var(--card), var(--card2));
+      background: linear-gradient(180deg, var(--panel), var(--panel2));
     }
 
     .grid{
@@ -101,12 +113,8 @@
       .grid{ grid-template-columns:1fr; }
     }
 
-    .pane{
-      padding:22px;
-    }
-    .pane + .pane{
-      border-left:1px solid var(--border);
-    }
+    .pane{ padding:22px; }
+    .pane + .pane{ border-left:1px solid var(--border); }
     @media (max-width: 900px){
       .pane + .pane{ border-left:none; border-top:1px solid var(--border); }
     }
@@ -156,11 +164,12 @@
       margin-top:14px;
       flex-wrap:wrap;
     }
+
     button{
       border:none;
       border-radius: 14px;
       padding:12px 14px;
-      font-weight:700;
+      font-weight:800;
       font-size:14px;
       cursor:pointer;
     }
@@ -178,28 +187,16 @@
       display:grid;
       gap:12px;
     }
+
     .metric{
       border: 1px solid var(--border);
       background: rgba(0,0,0,.28);
       border-radius: 16px;
       padding:14px 14px;
     }
-    .metric .t{
-      color: var(--muted);
-      font-size:12px;
-      margin-bottom:6px;
-    }
-    .metric .v{
-      font-size:22px;
-      font-weight:900;
-      letter-spacing:.2px;
-    }
-    .metric .s{
-      margin-top:6px;
-      font-size:13px;
-      color: var(--muted);
-      line-height:1.35;
-    }
+    .metric .t{ color: var(--muted); font-size:12px; margin-bottom:6px; }
+    .metric .v{ font-size:22px; font-weight:900; letter-spacing:.2px; }
+    .metric .s{ margin-top:6px; font-size:13px; color: var(--muted); line-height:1.35; }
 
     .bar{
       border: 1px solid var(--border);
@@ -255,9 +252,11 @@
     <div class="top">
       <div class="brand">
         <div class="logo" aria-label="Manifest More Legacy logo">
-          <!-- Embedded logo (no extra files needed) -->
-          <img alt="Manifest More Legacy"
-               src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8AAAB+0lEQVR4Xu3QsQ0AIBDAsNL9dz5WICgkqLrQd2Y0m3wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPgBf2cAAZ9cJv0AAAAASUVORK5CYII=" />
+          <!-- YOUR LOGO: embedded (no folders / no extra files) -->
+          <img
+            alt="Manifest More Legacy"
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJsSURBVHhe7Z0xTgNBFIYv2pA0cSg1b2kQkE4QYQpQqgYk3oZb8mE0aQJ2b1m0l5m2bQb1sZQ3tQv0Xc7m9g2o8l5r7p8y7d8Wm2y8gQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHgYQpZQb0xv5o4Y7m4gkqz0y8fFQkq1q1c7bq5o6k0lJk2+3ZpQy3m7e0m6m0aXoY7n2GvG9mQG3b0m0c8w9c3jQ2m7zq3m3cQw8m5c0vQ9m8k0y9u1+Oqz9tqJb9pB0S1c7m0c0o1s2cWm1bQf3H3pG2zQfGZy3k7b8j7e1p8Xc7h6VZlq9b2rJw7m9uQfGmS7q8r6Gm5m2m3k7o6s7m6q0bQvGmVZlq9b2rJw7m9uQfGmS7q8r6Gm5m2m3k7o6s7m6q0bQvGmW2y8gQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPwWcVQAAZQ5H0wAAAABJRU5ErkJggg=="
+          />
         </div>
         <div>
           <h1>Investment Growth Calculator</h1>
@@ -364,7 +363,7 @@
           </div>
 
           <div class="footer">
-            <!-- Change this link to your booking/landing CTA -->
+            <!-- OPTIONAL: replace with your real booking link -->
             <div class="pill">
               Ready for a real plan? <a href="#consult">Book a Financial Check-Up</a>
             </div>
@@ -372,8 +371,7 @@
           </div>
 
           <div class="note">
-            Tip: If you want this to feel more “landing page,” add a short section below this calculator
-            with a single CTA button + testimonials.
+            If you want the page to feel more like a landing page, add a CTA button + a short testimonial section below.
           </div>
         </div>
       </div>
@@ -404,10 +402,10 @@
     }
 
     /**
-     * We:
-     * 1) convert nominal annual rate compounded m times to effective annual rate
-     * 2) convert effective annual to equivalent monthly rate
-     * 3) apply FV formulas with monthly contributions (end of month)
+     * Method:
+     * 1) Convert nominal annual rate compounded m times to effective annual rate
+     * 2) Convert effective annual rate to equivalent monthly rate
+     * 3) FV of initial + FV of monthly contributions (end of month)
      */
     function calcFutureValue(initial, monthly, years, annualRatePct, compoundsPerYear){
       const r = annualRatePct / 100;
